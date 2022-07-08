@@ -494,6 +494,11 @@
   resolved "https://registry.yarnpkg.com/@tsconfig/svelte/-/svelte-3.0.0.tgz#b06e059209f04c414de0069f2f0e2796d979fc6f"
   integrity sha512-pYrtLtOwku/7r1i9AMONsJMVYAtk3hzOfiGNekhtq5tYBGA7unMve8RvUclKLMT3PrihvJqUmzsRGh0RP84hKg==
 
+"@types/drawflow@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@types/drawflow/-/drawflow-0.0.4.tgz#e5156b7cd73fb9c84a6084cbda9910f5ac0e5e13"
+  integrity sha512-LZ3qTfceI5Q9jveNA5VY5DyPuszLz4FTMsHNMMHFDPBUlmdlKGuMz9tVSuaP1AFUCCRJzq+sjUhozI51accUYg==
+
 "@types/json-schema@^7.0.9":
   version "7.0.11"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
@@ -905,6 +910,11 @@ doctrine@^3.0.0:
   integrity sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==
   dependencies:
     esutils "^2.0.2"
+
+drawflow@^0.0.59:
+  version "0.0.59"
+  resolved "https://registry.yarnpkg.com/drawflow/-/drawflow-0.0.59.tgz#b28404f88052b33c034410e08990fe35a9977827"
+  integrity sha512-HJM/8trYzignViTMzUSpskRclDhE62jM6oxjgqEJQBbkX9QvDG7JJwRlvdjqnjfL192Pdb0aIysrZMUqG8/vyg==
 
 emoji-regex@^8.0.0:
   version "8.0.0"

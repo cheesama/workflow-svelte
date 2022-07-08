@@ -19,6 +19,7 @@
 		"@smui/textfield": "^6.0.0-beta.16",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
+		"@types/drawflow": "^0.0.4",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",
 		"eslint": "^8.16.0",
@@ -35,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"drawflow": "^0.0.59",
 		"svelvet": "^1.0.3"
 	}
 }
