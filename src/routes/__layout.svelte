@@ -1,7 +1,2 @@
-<nav>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/settings">Settings</a>
-  </nav>
-  
-  <slot></slot>
+<h1>Workflow</h1>
+<slot></slot>
