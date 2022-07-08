@@ -1,4 +1,5 @@
 <!-- node list sidebar -->
+
 <div>
     <div class="node-sidebar">
         <a href="#">About</a>
@@ -6,9 +7,8 @@
         <a href="#">Clients</a>
         <a href="#">Contact</a>
     </div>
-    <section>
-        this is section
-    </section>
+    <slot></slot>
+
 </div>
 
 <style>
@@ -38,4 +38,9 @@
     .node-sidebar a:hover {
         color: #131010;
     }
+
+    .flow-caption {
+        left: 160px;
+    }
+
 </style>
