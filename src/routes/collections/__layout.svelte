@@ -1,14 +1,18 @@
-<!-- node list sidebar -->
+<script>
+    import ProxyNode from "../../components/nodes/ProxyNode.svelte"
+    import RouteNode from "../../components/nodes/RouteNode.svelte"
+    import ScriptNode from "../../components/nodes/ScriptNode.svelte"
+</script>
 
 <div>
     <div class="node-sidebar">
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        <ProxyNode></ProxyNode>
+        <RouteNode></RouteNode>
+        <ScriptNode></ScriptNode>
     </div>
     <slot></slot>
-
+    <div class="information-sidebard">
+    </div>
 </div>
 
 <style>
@@ -18,9 +22,9 @@
         width: 160px; /* Set the width of the sidebar */
         position: fixed; /* Fixed Sidebar (stay in place on scroll) */
         z-index: 1; /* Stay on top */
-        top: 0; /* Stay at the top */
+        top: 10; /* Stay at the top */
         left: 0;
-        background-color: rgb(223, 230, 229); /* Black */
+        background-color: rgb(223, 230, 229);
         overflow-x: hidden; /* Disable horizontal scroll */
         padding-top: 20px;
     }
@@ -32,15 +36,9 @@
         font-size: 25px;
         color: #818181;
         display: block;
-        }
+    }
 
     /* When you mouse over the navigation links, change their color */
-    .node-sidebar a:hover {
-        color: #131010;
-    }
-
-    .flow-caption {
-        left: 160px;
-    }
+    
 
 </style>
