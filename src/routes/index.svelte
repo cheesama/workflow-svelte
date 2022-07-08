@@ -1,2 +1,4 @@
-<h2>Collections</h2>
-<button>create collection</button>
+<div>
+    <h2>Collections</h2>
+    <button>create collection</button>
+</div>
