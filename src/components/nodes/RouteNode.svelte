@@ -4,7 +4,7 @@
     export const type = 'route'
 </script>
 
-<div class="route-node-style">
+<div class="route-node-style" draggable="true">
     <Icon class="material-icons">router</Icon>
     {type}
 </div>
@@ -15,7 +15,7 @@
         text-decoration: none;
         font-size: 25px;
         color: #498899;
-        display: block;
+        cursor: move;
     }
 
     .route-node-style:hover {

@@ -29,15 +29,6 @@
         padding-top: 20px;
     }
 
-    /* The navigation menu links */
-    .node-sidebar a {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #818181;
-        display: block;
-    }
-
     /* When you mouse over the navigation links, change their color */
     
 

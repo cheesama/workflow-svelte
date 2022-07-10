@@ -4,7 +4,7 @@
     export const type = 'script'
 </script>
 
-<div class="script-node-style">
+<div class="script-node-style" draggable="true">
     <Icon class="material-icons">description</Icon>
     {type}
 </div>
@@ -15,7 +15,7 @@
         text-decoration: none;
         font-size: 25px;
         color: #663e89;
-        display: block;
+        cursor: move;
     }
 
     .script-node-style:hover {
