@@ -3,6 +3,8 @@
     import Textfield from '@smui/textfield';
     import Svelvet from "svelvet";
 
+	import { currentNodes } from '../../stores/nodes';
+
     export let collection_name = 'untitle'
 
     const initialNodes = [
@@ -37,6 +39,10 @@
 	  { id: "e1-2", source: 1, target: 2, label: "edge label" },
 	  { id: "e2-3", source: 2, target: 3 }
 	];
+
+	let testFunc = () => {
+		console.log('svelvet event attach test');
+	}
 </script>
 
 
@@ -46,7 +52,7 @@
         <Icon class="material-icons">save</Icon>
         <Textfield bind:value={collection_name}></Textfield>
     </div>
-    <Svelvet nodes={initialNodes} edges={initialEdges} background />
+    <Svelvet nodes={initialNodes} edges={initialEdges} background on:dragend={testFunc}/>
 </div>
 
 <style>
