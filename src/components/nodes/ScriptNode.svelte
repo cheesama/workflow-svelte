@@ -1,24 +1,26 @@
 <script>
-    import { Icon } from '@smui/button';
+	import { Icon } from '@smui/button';
 
-    export const type = 'script'
+	export const type = 'script';
+	export const input_num = 1;
+	export const output_num = 1;
 </script>
 
-<div class="script-node-style" draggable="true">
-    <Icon class="material-icons">description</Icon>
-    {type}
+<div class="script-node-style">
+	<Icon class="material-icons">description</Icon>
+	{type}
 </div>
 
 <style>
-    .script-node-style {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        color: #663e89;
-        cursor: move;
-    }
+	.script-node-style {
+		padding: 6px 8px 6px 16px;
+		text-decoration: none;
+		font-size: 25px;
+		color: #663e89;
+		cursor: move;
+	}
 
-    .script-node-style:hover {
-        background-color: #dfcdcd;
-    }
+	.script-node-style:hover {
+		background-color: #dfcdcd;
+	}
 </style>

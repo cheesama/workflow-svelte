@@ -37,7 +37,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"drawflow": "^0.0.59",
-		"svelvet": "^1.0.3"
+		"drawflow": "^0.0.59"
 	}
 }
