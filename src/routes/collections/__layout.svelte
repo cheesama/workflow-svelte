@@ -1,17 +1,37 @@
 <script>
+// @ts-nocheck
+
+    import { onMount } from "svelte";
+
     import ProxyNode from "../../components/nodes/ProxyNode.svelte"
     import RouteNode from "../../components/nodes/RouteNode.svelte"
     import ScriptNode from "../../components/nodes/ScriptNode.svelte"
+
+    import Drawflow from '$lib/drawflow'
+
+    onMount(() => {
+        let id = document.getElementById("drawflow");
+        const editor = new Drawflow(id);
+        let html = document.createElement("div");
+        let data = { "name": '' };
+        html.innerHTML =  "Hello Drawflow!!";
+        editor.registerNode('test', html);
+        // Use
+        editor.start();
+        editor.addNode('github', 0, 1, 150, 300, 'github', data, 'test', true);
+        
+    });
 </script>
 
 <div>
+    <div id="drawflow"></div>
     <div class="node-sidebar">
         <ProxyNode></ProxyNode>
         <RouteNode></RouteNode>
         <ScriptNode></ScriptNode>
     </div>
     <slot></slot>
-    <div class="information-sidebard">
+    <div class="information-sidebar">
     </div>
 </div>
 

@@ -7,12 +7,20 @@
     /**
 * @param {any} event
 */
-    function nodeDrag(event) {
-        console.log('test');
+    function nodeDragStart(event) {
+        console.log('drag start');
     }
+
+    /**
+* @param {any} event
+*/
+    function nodeDragEnd(event) {
+        console.log('drag end');
+    }
+
 </script>
 
-<div class="proxy-node-style" draggable="true" on:dragstart={nodeDrag}>
+<div class="proxy-node-style" draggable="true" on:dragstart={nodeDragStart} on:dragend={nodeDragEnd}>
     <Icon class="material-icons">route</Icon>
     {type}
 </div>
