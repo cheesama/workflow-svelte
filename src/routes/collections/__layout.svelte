@@ -1,8 +1,9 @@
 <script>
 	// @ts-nocheck
 
-	import { onMount, getContext } from 'svelte';
+	import { onMount } from 'svelte';
 
+	import { node_type } from '../../stores/nodes';
 	import ProxyNode from '../../components/nodes/ProxyNode.svelte';
 	import RouteNode from '../../components/nodes/RouteNode.svelte';
 	import ScriptNode from '../../components/nodes/ScriptNode.svelte';
@@ -13,9 +14,6 @@
 	let mobile_item_selec = '';
 	let mobile_last_move = null;
 	let editor;
-
-	let node_infos = {};
-	$: node_infos['proxy'] = getContext('proxy');
 
 	function drag(ev) {
 		if (ev.type === 'touchstart') {
@@ -66,28 +64,19 @@
 			editor.precanvas.getBoundingClientRect().y *
 				(editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom));
 
-		console.log(node_infos);
-		const node_info = node_infos[name];
+		const node_info = $node_type[name];
+		console.log(node_info);
 
-		switch (name) {
-			case 'proxy':
-				console.log(node_info);
-				editor.addNode(
-					node_info.type,
-					node_info.input_num,
-					node_info.output_num,
-					pos_x,
-					pos_y,
-					node_info.type,
-					node_info.data,
-					node_info.innerHTML
-				);
-				break;
-			case 'route':
-				break;
-			case 'script':
-				break;
-		}
+		editor.addNode(
+			node_info.type,
+			node_info.input_num,
+			node_info.output_num,
+			pos_x,
+			pos_y,
+			node_info.type,
+			node_info.data,
+			node_info.innerHTML
+		);
 	}
 
 	function positionMobile(ev) {
@@ -129,7 +118,9 @@
 			</div>
 		</div>
 		<div class="col-right">
-			<div id="drawflow" on:drop={drop} on:dragover={allowDrop} />
+			<div id="drawflow" on:drop={drop} on:dragover={allowDrop}>
+				<div class="btn-clear" on:click={editor.clearModuleSelected()}>Clear</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -137,7 +128,7 @@
 <style>
 	#drawflow {
 		background-color: #eee;
-		width: 1600px;
+		width: 1800px;
 		height: 860px;
 	}
 </style>
