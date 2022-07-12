@@ -5,6 +5,11 @@
 	export const input_num = 1;
 	export const output_num = 1;
 
+	export let name = '';
+	export let url;
+	export let port;
+	export let method;
+
 </script>
 
 <div class="proxy-node-style">

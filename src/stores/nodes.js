@@ -19,19 +19,8 @@ export const node_type = readable({
 		'innerHTML': `
 		<div>
 			<div class="title-box">
-				<Icon icon="carbon:server-proxy" />
+				<span class="iconify" data-icon="carbon:server-proxy"></span>
 				Proxy
-			</div>
-			<div class="box">
-				<input type="text" df-url placeholder="URL"><br>
-				<p>select method</p>
-				<select df-method>
-					<option value="get">GET</option>
-					<option value="post">POST</option>
-					<option value="put">PUT</option>
-					<option value="patch">PATCH</option>
-					<option value="delete">DELETE</option>
-				</select>
 			</div>
 		</div>
 		`
@@ -47,19 +36,8 @@ export const node_type = readable({
 		'innerHTML': `
 		<div>
 			<div class="title-box">
-				<Icon icon="ic:baseline-route" />
+				<span class="iconify" data-icon="ic:baseline-route"></span>
 				Route
-			</div>
-			<div class="box">
-				<input type="text" df-url placeholder="URL"><br>
-				<p>select method</p>
-				<select df-method>
-					<option value="get">GET</option>
-					<option value="post">POST</option>
-					<option value="put">PUT</option>
-					<option value="patch">PATCH</option>
-					<option value="delete">DELETE</option>
-				</select>
 			</div>
 		</div>
 		`
@@ -74,11 +52,8 @@ export const node_type = readable({
 		'innerHTML': `
 		<div>
 			<div class="title-box">
-				<Icon icon="mdi:script-text-outline" />
+				<span class="iconify" data-icon="mdi:script-text-outline"></span>
 				Script
-			</div>
-			<div class="box">
-				<textarea rows="5" cols="60" df-script placeholder="script"><br>
 			</div>
 		</div>
 		`

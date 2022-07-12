@@ -5,6 +5,7 @@
 
 	import { node_type } from '../../stores/nodes';
 	import ProxyNode from '../../components/nodes/ProxyNode.svelte';
+	import ProxyNodeEditModal from '../../components/nodes/ProxyNodeEditModal.svelte';
 	import RouteNode from '../../components/nodes/RouteNode.svelte';
 	import ScriptNode from '../../components/nodes/ScriptNode.svelte';
 
@@ -15,6 +16,8 @@
 	let mobile_item_selec = '';
 	let mobile_last_move = null;
 	let editor;
+
+	let openProxyNodeEditModal = false;
 
 	function drag(ev) {
 		if (ev.type === 'touchstart') {
@@ -64,8 +67,7 @@
 				(editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom));
 
 		const node_info = $node_type[name];
-		console.log(node_info);
-
+		
 		editor.addNode(
 			node_info.type,
 			node_info.input_num,
@@ -80,6 +82,23 @@
 
 	function positionMobile(ev) {
 		mobile_last_move = ev;
+	}
+
+	function handleNodeDoubleClick(ev) {
+		if(ev.target.classList.contains('title-box')) {
+			const node_type = ev.target.textContent.trim();
+			console.log(node_type);
+
+			switch(node_type) {
+				case 'Proxy':
+					openProxyNodeEditModal = !openProxyNodeEditModal;
+					break
+				case 'Route':
+					break
+				case 'Script':
+					break
+			}
+		}
 	}
 
 	onMount(() => {
@@ -99,15 +118,24 @@
 			elements[i].addEventListener('touchmove', positionMobile, false);
 			elements[i].addEventListener('touchstart', drag, false);
 		}
+
+		document.getElementById("drawflow").addEventListener('dblclick', handleNodeDoubleClick);
 	});
+
+	function test() {
+		console.log('???');
+	}
+
 </script>
 
 <div>
+	<ProxyNodeEditModal isModalOpen={openProxyNodeEditModal} on:click={test}/>
 	<div class="wrapper">
 		<div class="col">
 			<div class="drag-drawflow" draggable="true" on:dragstart={drag} data-node="proxy">
 				<ProxyNode />
 			</div>
+			
 			<div class="drag-drawflow" draggable="true" on:dragstart={drag} data-node="route">
 				<RouteNode />
 			</div>
