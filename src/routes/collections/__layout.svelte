@@ -9,7 +9,8 @@
 	import ScriptNode from '../../components/nodes/ScriptNode.svelte';
 
 	import Drawflow from 'drawflow';
-	import { Icon } from '@smui/button';
+	
+	import Icon from '@iconify/svelte';
 
 	let mobile_item_selec = '';
 	let mobile_last_move = null;
@@ -21,8 +22,6 @@
 		} else {
 			ev.dataTransfer.setData('node', ev.target.getAttribute('data-node'));
 		}
-
-		console.log('drag event for ' + ev.dataTransfer.getData('node'));
 	}
 
 	function allowDrop(ev) {
@@ -86,13 +85,13 @@
 	onMount(() => {
 		let id = document.getElementById('drawflow');
 		editor = new Drawflow(id);
-		let html = document.createElement('div');
-		let data = { name: '' };
-		html.innerHTML = 'Hello Drawflow!!';
-
 		editor.start();
-		editor.registerNode('test', html);
-		editor.addNode('github', 0, 1, 150, 300, 'github', data, 'test', true);
+
+		// let html = document.createElement('div');
+		// let data = { name: '' };
+		// html.innerHTML = 'Hello Drawflow!!';
+		// editor.registerNode('test', html);
+		// editor.addNode('github', 0, 1, 150, 300, 'github', data, 'test', true);
 
 		let elements = document.getElementsByClassName('drag-drawflow');
 		for (var i = 0; i < elements.length; i++) {
@@ -104,7 +103,6 @@
 </script>
 
 <div>
-	<slot />
 	<div class="wrapper">
 		<div class="col">
 			<div class="drag-drawflow" draggable="true" on:dragstart={drag} data-node="proxy">
@@ -118,9 +116,19 @@
 			</div>
 		</div>
 		<div class="col-right">
-			<div id="drawflow" on:drop={drop} on:dragover={allowDrop}>
-				<div class="btn-clear" on:click={editor.clearModuleSelected()}>Clear</div>
+			<div class="menu">
+				<slot></slot>
 			</div>
+			<div id="drawflow" on:drop={drop} on:dragover={allowDrop}>
+				<div class="btn-export" on:click={Swal.fire({ title: 'Export', html: '<pre><code>'+JSON.stringify(editor.export(), null,4)+'</code></pre>'})}>Export</div>
+				<div class="btn-clear" on:click={editor.clearModuleSelected()}>Clear</div>
+				<div class="bar-zoom">
+					<Icon icon="akar-icons:zoom-out" on:click={editor.zoom_out()}></Icon>
+					<Icon icon="bytesize:zoom-reset" on:click={editor.zoom_reset()}></Icon>
+					<Icon icon="akar-icons:zoom-in" on:click={editor.zoom_in()}></Icon>
+				</div>
+			</div>
+				
 		</div>
 	</div>
 </div>

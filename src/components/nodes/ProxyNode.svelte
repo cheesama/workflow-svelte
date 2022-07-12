@@ -1,14 +1,14 @@
 <script>
-	import { Icon } from '@smui/button';
+	import Icon from '@iconify/svelte';
 
 	export const type = 'proxy';
 	export const input_num = 1;
 	export const output_num = 1;
-	
+
 </script>
 
 <div class="proxy-node-style">
-	<Icon class="material-icons">route</Icon>
+	<Icon icon="carbon:server-proxy" />
 	{type}
 </div>
 

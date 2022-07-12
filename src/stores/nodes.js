@@ -19,7 +19,7 @@ export const node_type = readable({
 		'innerHTML': `
 		<div>
 			<div class="title-box">
-				<Icon class="material-icons">route</Icon>
+				<Icon icon="carbon:server-proxy" />
 				Proxy
 			</div>
 			<div class="box">
@@ -47,7 +47,7 @@ export const node_type = readable({
 		'innerHTML': `
 		<div>
 			<div class="title-box">
-				<Icon class="material-icons">router</Icon>
+				<Icon icon="ic:baseline-route" />
 				Route
 			</div>
 			<div class="box">
@@ -74,7 +74,7 @@ export const node_type = readable({
 		'innerHTML': `
 		<div>
 			<div class="title-box">
-				<Icon class="material-icons">description</Icon>
+				<Icon icon="mdi:script-text-outline" />
 				Script
 			</div>
 			<div class="box">

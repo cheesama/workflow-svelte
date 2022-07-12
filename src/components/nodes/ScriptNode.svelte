@@ -1,5 +1,5 @@
 <script>
-	import { Icon } from '@smui/button';
+	import Icon from '@iconify/svelte';
 
 	export const type = 'script';
 	export const input_num = 1;
@@ -7,7 +7,7 @@
 </script>
 
 <div class="script-node-style">
-	<Icon class="material-icons">description</Icon>
+	<Icon icon="mdi:script-text-outline" />
 	{type}
 </div>
 

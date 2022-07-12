@@ -1,5 +1,5 @@
 <script>
-	import { Icon } from '@smui/button';
+	import Icon from '@iconify/svelte';
 
 	export const type = 'route';
 	export const input_num = 0;
@@ -7,7 +7,7 @@
 </script>
 
 <div class="route-node-style">
-	<Icon class="material-icons">router</Icon>
+	<Icon icon="ic:baseline-route" />
 	{type}
 </div>
 
