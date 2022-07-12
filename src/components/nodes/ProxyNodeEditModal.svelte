@@ -1,18 +1,26 @@
 <script>
     export let isModalOpen = false;
+
     export /**
 * @type {any}
 */
      let id;
+    export /**
+* @type {any}
+*/
+     let port;
+    export let name = '';
+    export let url = '';
+
 </script>
 
 {#if isModalOpen}
-    <div class='backdrop'>
+    <div class='backdrop' on:dblclick>
         <div class='edit-modal'>
-            <p>Edting Proxy Node : {id}</p>
-            <input type="name" placeholder="name" />
-            <input type="url" placeholder="URL" />
-            <input type="number" placeholder="port" />
+            <p>Edting Proxy Node - id : {id}</p>
+            name: <input type="name" bind:value={name}/><br>
+            URL: <input type="url" bind:value={url}/><br>
+            port: <input type="number" bind:value={port}/><br>
         </div>
     </div>
 {/if}

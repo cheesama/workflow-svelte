@@ -18,6 +18,8 @@
 	let editor;
 
 	let openProxyNodeEditModal = false;
+	let openRouteNodeEditModal = false;
+	let openScriptNodeEditModal = false;
 
 	function drag(ev) {
 		if (ev.type === 'touchstart') {
@@ -48,8 +50,8 @@
 			mobile_item_selec = '';
 		} else {
 			ev.preventDefault();
-			var data = ev.dataTransfer.getData('node');
-			addNodeToDrawFlow(data, ev.clientX, ev.clientY);
+			var nodeType = ev.dataTransfer.getData('node');
+			addNodeToDrawFlow(nodeType, ev.clientX, ev.clientY);
 		}
 	}
 
@@ -87,8 +89,7 @@
 	function handleNodeDoubleClick(ev) {
 		if(ev.target.classList.contains('title-box')) {
 			const node_type = ev.target.textContent.trim();
-			console.log(node_type);
-
+			
 			switch(node_type) {
 				case 'Proxy':
 					openProxyNodeEditModal = !openProxyNodeEditModal;
@@ -129,13 +130,12 @@
 </script>
 
 <div>
-	<ProxyNodeEditModal isModalOpen={openProxyNodeEditModal} on:click={test}/>
 	<div class="wrapper">
 		<div class="col">
 			<div class="drag-drawflow" draggable="true" on:dragstart={drag} data-node="proxy">
 				<ProxyNode />
+				<ProxyNodeEditModal isModalOpen={openProxyNodeEditModal} on:dblclick={()=> openProxyNodeEditModal = !openProxyNodeEditModal}/>
 			</div>
-			
 			<div class="drag-drawflow" draggable="true" on:dragstart={drag} data-node="route">
 				<RouteNode />
 			</div>
@@ -155,6 +155,7 @@
 					<Icon icon="bytesize:zoom-reset" on:click={editor.zoom_reset()}></Icon>
 					<Icon icon="akar-icons:zoom-in" on:click={editor.zoom_in()}></Icon>
 				</div>
+				
 			</div>
 				
 		</div>
