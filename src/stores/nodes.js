@@ -7,6 +7,8 @@ export const currentNodes = writable({}, () => {
 	};
 });
 
+export const currentNode = writable({});
+
 export const node_type = readable({
 	proxy: {
 		type: 'proxy',

@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 
 	import { node_type } from '../../stores/nodes';
-	import { currentNodes } from '../../stores/nodes';
+	import { currentNodes, currentNode } from '../../stores/nodes';
 
 	import ProxyNode from '../../components/nodes/ProxyNode.svelte';
 	import ProxyNodeEditModal from '../../components/nodes/ProxyNodeEditModal.svelte';
@@ -14,7 +14,6 @@
 	import ScriptNodeEditModal from '../../components/nodes/ScriptNodeEditModal.svelte';
 
 	import Drawflow from 'drawflow';
-	import { v4 as uuidv4 } from 'uuid';
 	import Icon from '@iconify/svelte';
 
 	let mobile_item_selec = '';
@@ -55,6 +54,7 @@
 			var nodeType = ev.dataTransfer.getData('node');
 			addNodeToDrawFlow(nodeType, ev.clientX, ev.clientY);
 		}
+
 	}
 
 	function addNodeToDrawFlow(name, pos_x, pos_y) {
@@ -71,9 +71,8 @@
 				(editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom));
 
 		const node_info = $node_type[name];
-		node_info.data.uuid = uuidv4();
-
-		editor.addNode(
+		
+		const newNodeId = editor.addNode(
 			node_info.type,
 			node_info.input_num,
 			node_info.output_num,
@@ -84,7 +83,11 @@
 			node_info.innerHTML
 		);
 
+		document.getElementById('node-' + newNodeId).addEventListener('dblclick', handleNodeDoubleClick);
+
 		updateCurrentNodes();
+
+		console.log($currentNodes);
 	}
 
 	function positionMobile(ev) {
@@ -92,8 +95,6 @@
 	}
 
 	function handleNodeDoubleClick(ev) {
-		console.log($currentNodes);
-
 		if (ev.target.classList.contains('title-box')) {
 			const node_type = ev.target.textContent.trim();
 
@@ -115,20 +116,13 @@
 		let nodesInfo = editor.export();
 		nodesInfo = { collections: nodesInfo['drawflow'] };
 		currentNodes.set(nodesInfo);
-
-		console.log($currentNodes);
 	}
 
 	onMount(() => {
 		let id = document.getElementById('drawflow');
 		editor = new Drawflow(id);
+		editor.useuuid = true;
 		editor.start();
-
-		// let html = document.createElement('div');
-		// let data = { name: '' };
-		// html.innerHTML = 'Hello Drawflow!!';
-		// editor.registerNode('test', html);
-		// editor.addNode('github', 0, 1, 150, 300, 'github', data, 'test', true);
 
 		let elements = document.getElementsByClassName('drag-drawflow');
 		for (var i = 0; i < elements.length; i++) {
@@ -137,7 +131,6 @@
 			elements[i].addEventListener('touchstart', drag, false);
 		}
 
-		document.getElementById('drawflow').addEventListener('dblclick', handleNodeDoubleClick);
 		document.getElementById('drawflow').addEventListener('keydown', updateCurrentNodes);
 		document.getElementById('drawflow').addEventListener('mouseup', updateCurrentNodes);
 	});

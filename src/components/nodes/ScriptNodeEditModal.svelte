@@ -1,4 +1,8 @@
 <script>
+	import { fade } from 'svelte/transition';
+
+	import { currentNodes } from "../../stores/nodes";
+
 	export let isModalOpen = false;
 
 	export /**
@@ -11,7 +15,7 @@
 </script>
 
 {#if isModalOpen}
-	<div class="backdrop" on:dblclick>
+	<div class="backdrop" transition:fade on:dblclick>
 		<div class="edit-modal">
 			<p>Edting Script Node - id : {id}</p>
 			name:<br />
