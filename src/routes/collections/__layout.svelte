@@ -4,13 +4,17 @@
 	import { onMount } from 'svelte';
 
 	import { node_type } from '../../stores/nodes';
+	import { currentNodes } from '../../stores/nodes';
+
 	import ProxyNode from '../../components/nodes/ProxyNode.svelte';
 	import ProxyNodeEditModal from '../../components/nodes/ProxyNodeEditModal.svelte';
 	import RouteNode from '../../components/nodes/RouteNode.svelte';
+	import RouteNodeEditModal from '../../components/nodes/RouteNodeEditModal.svelte';
 	import ScriptNode from '../../components/nodes/ScriptNode.svelte';
+	import ScriptNodeEditModal from '../../components/nodes/ScriptNodeEditModal.svelte';
 
 	import Drawflow from 'drawflow';
-	
+	import { v4 as uuidv4 } from "uuid";
 	import Icon from '@iconify/svelte';
 
 	let mobile_item_selec = '';
@@ -69,7 +73,8 @@
 				(editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom));
 
 		const node_info = $node_type[name];
-		
+		node_info.data.uuid = uuidv4();
+
 		editor.addNode(
 			node_info.type,
 			node_info.input_num,
@@ -80,6 +85,13 @@
 			node_info.data,
 			node_info.innerHTML
 		);
+
+		currentNodes.set(convertNodesInfo(editor.export()));
+	}
+
+	function convertNodesInfo(nodesInfo) {
+		const convertedNodeInfo = {'collections': nodesInfo['drawflow']};	
+		return convertedNodeInfo;
 	}
 
 	function positionMobile(ev) {
@@ -87,19 +99,27 @@
 	}
 
 	function handleNodeDoubleClick(ev) {
-		if(ev.target.classList.contains('title-box')) {
+		console.log($currentNodes);
+
+		if (ev.target.classList.contains('title-box')) {
 			const node_type = ev.target.textContent.trim();
-			
-			switch(node_type) {
+
+			switch (node_type) {
 				case 'Proxy':
 					openProxyNodeEditModal = !openProxyNodeEditModal;
-					break
+					break;
 				case 'Route':
-					break
+					openRouteNodeEditModal = !openRouteNodeEditModal;
+					break;
 				case 'Script':
-					break
+					openScriptNodeEditModal = !openScriptNodeEditModal;
+					break;
 			}
 		}
+	}
+
+	function handleKeyDown(ev) {
+		console.log('key down');
 	}
 
 	onMount(() => {
@@ -120,13 +140,10 @@
 			elements[i].addEventListener('touchstart', drag, false);
 		}
 
-		document.getElementById("drawflow").addEventListener('dblclick', handleNodeDoubleClick);
+		document.getElementById('drawflow').addEventListener('dblclick', handleNodeDoubleClick);
+		document.getElementById('drawflow').addEventListener('keydown', handleKeyDown);
+
 	});
-
-	function test() {
-		console.log('???');
-	}
-
 </script>
 
 <div>
@@ -134,30 +151,47 @@
 		<div class="col">
 			<div class="drag-drawflow" draggable="true" on:dragstart={drag} data-node="proxy">
 				<ProxyNode />
-				<ProxyNodeEditModal isModalOpen={openProxyNodeEditModal} on:dblclick={()=> openProxyNodeEditModal = !openProxyNodeEditModal}/>
+				<ProxyNodeEditModal
+					isModalOpen={openProxyNodeEditModal}
+					on:dblclick={() => (openProxyNodeEditModal = !openProxyNodeEditModal)}
+				/>
 			</div>
 			<div class="drag-drawflow" draggable="true" on:dragstart={drag} data-node="route">
 				<RouteNode />
+				<RouteNodeEditModal
+					isModalOpen={openRouteNodeEditModal}
+					on:dblclick={() => (openRouteNodeEditModal = !openRouteNodeEditModal)}
+				/>
 			</div>
 			<div class="drag-drawflow" draggable="true" on:dragstart={drag} data-node="script">
 				<ScriptNode />
+				<ScriptNodeEditModal
+					isModalOpen={openScriptNodeEditModal}
+					on:dblclick={() => (openScriptNodeEditModal = !openScriptNodeEditModal)}
+				/>
 			</div>
 		</div>
 		<div class="col-right">
 			<div class="menu">
-				<slot></slot>
+				<slot />
 			</div>
 			<div id="drawflow" on:drop={drop} on:dragover={allowDrop}>
-				<div class="btn-export" on:click={Swal.fire({ title: 'Export', html: '<pre><code>'+JSON.stringify(editor.export(), null,4)+'</code></pre>'})}>Export</div>
+				<div
+					class="btn-export"
+					on:click={Swal.fire({
+						title: 'Export',
+						html: '<pre><code>' + JSON.stringify(editor.export(), null, 4) + '</code></pre>'
+					})}
+				>
+					Export
+				</div>
 				<div class="btn-clear" on:click={editor.clearModuleSelected()}>Clear</div>
 				<div class="bar-zoom">
-					<Icon icon="akar-icons:zoom-out" on:click={editor.zoom_out()}></Icon>
-					<Icon icon="bytesize:zoom-reset" on:click={editor.zoom_reset()}></Icon>
-					<Icon icon="akar-icons:zoom-in" on:click={editor.zoom_in()}></Icon>
+					<Icon icon="akar-icons:zoom-out" on:click={editor.zoom_out()} />
+					<Icon icon="bytesize:zoom-reset" on:click={editor.zoom_reset()} />
+					<Icon icon="akar-icons:zoom-in" on:click={editor.zoom_in()} />
 				</div>
-				
 			</div>
-				
 		</div>
 	</div>
 </div>

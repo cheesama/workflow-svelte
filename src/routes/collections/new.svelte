@@ -3,5 +3,5 @@
 </script>
 
 <ul>
-	<input bind:value={collection_name}>
+	<input bind:value={collection_name} />
 </ul>

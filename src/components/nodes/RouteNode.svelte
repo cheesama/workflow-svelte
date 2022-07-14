@@ -8,7 +8,6 @@
 	export let name = '';
 	export let endpoint;
 	export let method;
-
 </script>
 
 <div class="route-node-style">

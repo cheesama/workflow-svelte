@@ -9,7 +9,6 @@
 	export let url;
 	export let port;
 	export let method;
-
 </script>
 
 <div class="proxy-node-style">

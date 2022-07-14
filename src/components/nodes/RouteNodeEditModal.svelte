@@ -5,22 +5,17 @@
 	 * @type {any}
 	 */
 	let id;
-	export /**
-	 * @type {any}
-	 */
-	let port;
 
 	export let name = '';
-	export let url = '';
+	export let endpoint = '';
 </script>
 
 {#if isModalOpen}
 	<div class="backdrop" on:dblclick>
 		<div class="edit-modal">
-			<p>Edting Proxy Node - id : {id}</p>
+			<p>Edting Route Node - id : {id}</p>
 			name:<input type="name" bind:value={name} /><br />
-			URL: <input type="url" bind:value={url} /><br />
-			port: <input type="number" bind:value={port} /><br />
+			endpoint: <input type="endpoint" bind:value={endpoint} /><br />
 		</div>
 	</div>
 {/if}

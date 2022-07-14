@@ -1,22 +1,22 @@
 import { writable, readable } from 'svelte/store';
 
 export const currentNodes = writable({}, () => {
-	console.log('there are some tracking nodes!');
+	console.log('there are some tracking nodes!'); //there is/are subscription target more than 0
 	return () => {
-		console.log('there are no tracking nodes ...');
+		console.log('there are no tracking nodes ...'); //there is no subscription target
 	};
 });
 
 export const node_type = readable({
-	'proxy': {
-		'type': 'proxy',
-		'input_num': 1,
-		'output_num': 1,
-		'data': {
-			'url': '',
-			'method': 'GET'
+	proxy: {
+		type: 'proxy',
+		input_num: 1,
+		output_num: 1,
+		data: {
+			url: '',
+			method: 'GET'
 		},
-		'innerHTML': `
+		innerHTML: `
 		<div>
 			<div class="title-box">
 				<span class="iconify" data-icon="carbon:server-proxy"></span>
@@ -25,15 +25,15 @@ export const node_type = readable({
 		</div>
 		`
 	},
-	'route': {
-		'type': 'route',
-		'input_num': 0,
-		'output_num': 1,
-		'data': {
-			'url': '',
-			'method': 'GET'
+	route: {
+		type: 'route',
+		input_num: 0,
+		output_num: 1,
+		data: {
+			url: '',
+			method: 'GET'
 		},
-		'innerHTML': `
+		innerHTML: `
 		<div>
 			<div class="title-box">
 				<span class="iconify" data-icon="ic:baseline-route"></span>
@@ -42,14 +42,14 @@ export const node_type = readable({
 		</div>
 		`
 	},
-	'script': {
-		'type': 'script',
-		'input_num': 1,
-		'output_num': 1,
-		'data': {
-			'script': ''
+	script: {
+		type: 'script',
+		input_num: 1,
+		output_num: 1,
+		data: {
+			script: ''
 		},
-		'innerHTML': `
+		innerHTML: `
 		<div>
 			<div class="title-box">
 				<span class="iconify" data-icon="mdi:script-text-outline"></span>
@@ -58,4 +58,4 @@ export const node_type = readable({
 		</div>
 		`
 	}
-})
+});

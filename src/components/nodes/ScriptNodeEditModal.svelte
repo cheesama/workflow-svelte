@@ -5,22 +5,19 @@
 	 * @type {any}
 	 */
 	let id;
-	export /**
-	 * @type {any}
-	 */
-	let port;
 
 	export let name = '';
-	export let url = '';
+	export let code = '';
 </script>
 
 {#if isModalOpen}
 	<div class="backdrop" on:dblclick>
 		<div class="edit-modal">
-			<p>Edting Proxy Node - id : {id}</p>
-			name:<input type="name" bind:value={name} /><br />
-			URL: <input type="url" bind:value={url} /><br />
-			port: <input type="number" bind:value={port} /><br />
+			<p>Edting Script Node - id : {id}</p>
+			name:<br>
+            <input type="name" bind:value={name} /><br />
+			code:<br>
+            <textarea type="code" bind:value={code} /><br />
 		</div>
 	</div>
 {/if}
@@ -37,9 +34,10 @@
 	}
 
 	.edit-modal {
+        height: 50%;
 		padding: 10px;
 		border-radius: 10px;
-		max-width: 400px;
+		max-width: 800px;
 		margin: 10% auto;
 		text-align: center;
 		background: white;
