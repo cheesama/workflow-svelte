@@ -14,10 +14,10 @@
 	<div class="backdrop" on:dblclick>
 		<div class="edit-modal">
 			<p>Edting Script Node - id : {id}</p>
-			name:<br>
-            <input type="name" bind:value={name} /><br />
-			code:<br>
-            <textarea type="code" bind:value={code} /><br />
+			name:<br />
+			<input type="name" bind:value={name} /><br />
+			code:<br />
+			<textarea type="code" bind:value={code} /><br />
 		</div>
 	</div>
 {/if}
@@ -34,7 +34,7 @@
 	}
 
 	.edit-modal {
-        height: 50%;
+		height: 50%;
 		padding: 10px;
 		border-radius: 10px;
 		max-width: 800px;

@@ -14,7 +14,7 @@
 	import ScriptNodeEditModal from '../../components/nodes/ScriptNodeEditModal.svelte';
 
 	import Drawflow from 'drawflow';
-	import { v4 as uuidv4 } from "uuid";
+	import { v4 as uuidv4 } from 'uuid';
 	import Icon from '@iconify/svelte';
 
 	let mobile_item_selec = '';
@@ -38,8 +38,6 @@
 	}
 
 	function drop(ev) {
-		console.log('drawflow palette drop');
-
 		if (ev.type === 'touchend') {
 			var parentdrawflow = document
 				.elementFromPoint(mobile_last_move.touches[0].clientX, mobile_last_move.touches[0].clientY)
@@ -86,12 +84,7 @@
 			node_info.innerHTML
 		);
 
-		currentNodes.set(convertNodesInfo(editor.export()));
-	}
-
-	function convertNodesInfo(nodesInfo) {
-		const convertedNodeInfo = {'collections': nodesInfo['drawflow']};	
-		return convertedNodeInfo;
+		updateCurrentNodes();
 	}
 
 	function positionMobile(ev) {
@@ -118,8 +111,12 @@
 		}
 	}
 
-	function handleKeyDown(ev) {
-		console.log('key down');
+	function updateCurrentNodes() {
+		let nodesInfo = editor.export();
+		nodesInfo = { collections: nodesInfo['drawflow'] };
+		currentNodes.set(nodesInfo);
+
+		console.log($currentNodes);
 	}
 
 	onMount(() => {
@@ -141,8 +138,8 @@
 		}
 
 		document.getElementById('drawflow').addEventListener('dblclick', handleNodeDoubleClick);
-		document.getElementById('drawflow').addEventListener('keydown', handleKeyDown);
-
+		document.getElementById('drawflow').addEventListener('keydown', updateCurrentNodes);
+		document.getElementById('drawflow').addEventListener('mouseup', updateCurrentNodes);
 	});
 </script>
 
