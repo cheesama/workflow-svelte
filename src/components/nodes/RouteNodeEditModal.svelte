@@ -1,25 +1,22 @@
 <script>
-	import { fade } from 'svelte/transition';
+	import { currentNodes, editNodeId } from '../../stores/nodes';
 
-	import { currentNodes } from "../../stores/nodes";
+	import { fade } from 'svelte/transition';
 
 	export let isModalOpen = false;
 
-	export /**
-	 * @type {any}
-	 */
-	let id;
-
-	export let name = '';
-	export let endpoint = '';
 </script>
 
-{#if isModalOpen}
+{#if isModalOpen && $editNodeId}
 	<div class="backdrop" transition:fade on:dblclick>
 		<div class="edit-modal">
-			<p>Edting Route Node - id : {id}</p>
-			name:<input type="name" bind:value={name} /><br />
-			endpoint: <input type="endpoint" bind:value={endpoint} /><br />
+			<p>Edting Route Node - id : {$editNodeId}</p>
+			name:<input bind:value={
+				// @ts-ignore
+				$currentNodes['collections']['Home']['data'][$editNodeId]['data']['name']} /><br />
+			endpoint: <input bind:value={
+				// @ts-ignore
+				$currentNodes['collections']['Home']['data'][$editNodeId]['data']['url']} /><br />
 		</div>
 	</div>
 {/if}
@@ -38,7 +35,7 @@
 	.edit-modal {
 		padding: 10px;
 		border-radius: 10px;
-		max-width: 400px;
+		max-width: 600px;
 		margin: 10% auto;
 		text-align: center;
 		background: white;

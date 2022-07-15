@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 
 	import { node_type } from '../../stores/nodes';
-	import { currentNodes, currentNode } from '../../stores/nodes';
+	import { currentNodes, editNodeId } from '../../stores/nodes';
 
 	import ProxyNode from '../../components/nodes/ProxyNode.svelte';
 	import ProxyNodeEditModal from '../../components/nodes/ProxyNodeEditModal.svelte';
@@ -45,19 +45,19 @@
 				addNodeToDrawFlow(
 					mobile_item_selec,
 					mobile_last_move.touches[0].clientX,
-					mobile_last_move.touches[0].clientY
+					mobile_last_move.touches[0].clientY,
+					ev
 				);
 			}
 			mobile_item_selec = '';
 		} else {
 			ev.preventDefault();
 			var nodeType = ev.dataTransfer.getData('node');
-			addNodeToDrawFlow(nodeType, ev.clientX, ev.clientY);
+			addNodeToDrawFlow(nodeType, ev.clientX, ev.clientY, ev);
 		}
-
 	}
 
-	function addNodeToDrawFlow(name, pos_x, pos_y) {
+	function addNodeToDrawFlow(name, pos_x, pos_y, ev) {
 		if (editor.editor_mode === 'fixed') {
 			return false;
 		}
@@ -71,7 +71,7 @@
 				(editor.precanvas.clientHeight / (editor.precanvas.clientHeight * editor.zoom));
 
 		const node_info = $node_type[name];
-		
+
 		const newNodeId = editor.addNode(
 			node_info.type,
 			node_info.input_num,
@@ -83,11 +83,13 @@
 			node_info.innerHTML
 		);
 
-		document.getElementById('node-' + newNodeId).addEventListener('dblclick', handleNodeDoubleClick);
+		let targetNode = ev.target.querySelector('#node-' + newNodeId);
+		targetNode = targetNode.querySelector('.title-box');
+		targetNode.id = newNodeId;
+
+		targetNode.addEventListener('dblclick', handleNodeDoubleClick);
 
 		updateCurrentNodes();
-
-		console.log($currentNodes);
 	}
 
 	function positionMobile(ev) {
@@ -95,21 +97,26 @@
 	}
 
 	function handleNodeDoubleClick(ev) {
-		if (ev.target.classList.contains('title-box')) {
-			const node_type = ev.target.textContent.trim();
+		const node_type = ev.target.textContent.trim();
 
-			switch (node_type) {
-				case 'Proxy':
-					openProxyNodeEditModal = !openProxyNodeEditModal;
-					break;
-				case 'Route':
-					openRouteNodeEditModal = !openRouteNodeEditModal;
-					break;
-				case 'Script':
-					openScriptNodeEditModal = !openScriptNodeEditModal;
-					break;
-			}
+		editNodeId.set(ev.target.id);
+
+		console.log($currentNodes);
+		console.log($editNodeId);
+
+		switch (node_type) {
+			case 'Proxy':
+				openProxyNodeEditModal = !openProxyNodeEditModal;
+				break;
+			case 'Route':
+				openRouteNodeEditModal = !openRouteNodeEditModal;
+				break;
+			case 'Script':
+				openScriptNodeEditModal = !openScriptNodeEditModal;
+				break;
 		}
+
+		
 	}
 
 	function updateCurrentNodes() {

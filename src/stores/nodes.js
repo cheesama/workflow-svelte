@@ -7,7 +7,7 @@ export const currentNodes = writable({}, () => {
 	};
 });
 
-export const currentNode = writable({});
+export const editNodeId = writable('');
 
 export const node_type = readable({
 	proxy: {
@@ -15,8 +15,10 @@ export const node_type = readable({
 		input_num: 1,
 		output_num: 1,
 		data: {
+			name: '',
 			url: '',
-			method: 'GET'
+			method: 'GET',
+			port: 0
 		},
 		innerHTML: `
 		<div>
@@ -32,7 +34,8 @@ export const node_type = readable({
 		input_num: 0,
 		output_num: 1,
 		data: {
-			url: '',
+			name: '',
+			endpoint: '',
 			method: 'GET'
 		},
 		innerHTML: `
@@ -49,6 +52,7 @@ export const node_type = readable({
 		input_num: 1,
 		output_num: 1,
 		data: {
+			name: '',
 			script: ''
 		},
 		innerHTML: `

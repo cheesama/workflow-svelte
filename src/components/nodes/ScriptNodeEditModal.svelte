@@ -1,7 +1,7 @@
 <script>
 	import { fade } from 'svelte/transition';
 
-	import { currentNodes } from "../../stores/nodes";
+	import { currentNodes } from '../../stores/nodes';
 
 	export let isModalOpen = false;
 
