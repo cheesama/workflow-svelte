@@ -1,7 +1,7 @@
 <script>
-	export let collection_name = 'untitle';
+	export let collection_name = 'Home';
 </script>
 
 <ul>
-	<input bind:value={collection_name} />
+	<li class="selected">{collection_name}</li>
 </ul>

@@ -90,6 +90,8 @@
 		targetNode.addEventListener('dblclick', handleNodeDoubleClick);
 
 		updateCurrentNodes();
+
+		console.log($currentNodes);
 	}
 
 	function positionMobile(ev) {
@@ -100,9 +102,7 @@
 		const node_type = ev.target.textContent.trim();
 
 		editNodeId.set(ev.target.id);
-
 		console.log($currentNodes);
-		console.log($editNodeId);
 
 		switch (node_type) {
 			case 'Proxy':
@@ -122,6 +122,16 @@
 	function updateCurrentNodes() {
 		let nodesInfo = editor.export();
 		nodesInfo = { collections: nodesInfo['drawflow'] };
+
+		//backup pre-defined node information
+		if('collections' in $currentNodes) {
+			for (const [nodeId, nodeData] of Object.entries($currentNodes['collections']['Home']['data'])) {
+				if(nodeId in nodesInfo['collections']['Home']['data']) {
+					nodesInfo['collections']['Home']['data'][nodeId]['data'] = nodeData['data'];
+				}
+			}
+		}
+
 		currentNodes.set(nodesInfo);
 	}
 
@@ -141,6 +151,7 @@
 		document.getElementById('drawflow').addEventListener('keydown', updateCurrentNodes);
 		document.getElementById('drawflow').addEventListener('mouseup', updateCurrentNodes);
 	});
+
 </script>
 
 <div>
