@@ -5,8 +5,6 @@
 	export const input_num = 1;
 	export const output_num = 1;
 
-	export let name = '';
-	export let code = '';
 </script>
 
 <div class="script-node-style">

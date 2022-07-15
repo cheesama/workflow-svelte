@@ -5,9 +5,6 @@
 	export const input_num = 0;
 	export const output_num = 1;
 
-	export let name = '';
-	export let endpoint;
-	export let method;
 </script>
 
 <div class="route-node-style">
