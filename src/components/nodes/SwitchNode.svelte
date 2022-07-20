@@ -1,26 +1,25 @@
 <script>
 	import Icon from '@iconify/svelte';
 
-	export const type = 'proxy';
+	export const type = 'switch';
 	export const input_num = 1;
-	export const output_num = 1;
 </script>
 
-<div class="proxy-node-style">
-	<Icon icon="carbon:server-proxy" />
+<div class="script-node-style">
+	<Icon icon="icon-park:branch-one" />
 	{type}
 </div>
 
 <style>
-	.proxy-node-style {
+	.script-node-style {
 		padding: 6px 8px 6px 16px;
 		text-decoration: none;
 		font-size: 25px;
-		color: #8a7c7c;
+		color: #355266;
 		cursor: move;
 	}
 
-	.proxy-node-style:hover {
+	.script-node-style:hover {
 		background-color: #dfcdcd;
 	}
 </style>

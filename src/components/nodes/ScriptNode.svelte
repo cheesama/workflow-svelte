@@ -4,11 +4,10 @@
 	export const type = 'script';
 	export const input_num = 1;
 	export const output_num = 1;
-
 </script>
 
 <div class="script-node-style">
-	<Icon icon="mdi:script-text-outline" />
+	<Icon icon="fluent:document-javascript-24-regular" />
 	{type}
 </div>
 

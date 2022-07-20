@@ -12,6 +12,8 @@
 	import RouteNodeEditModal from '../../components/nodes/RouteNodeEditModal.svelte';
 	import ScriptNode from '../../components/nodes/ScriptNode.svelte';
 	import ScriptNodeEditModal from '../../components/nodes/ScriptNodeEditModal.svelte';
+	import SwitchNode from '../../components/nodes/SwitchNode.svelte';
+	import SwitchNodeEditModal from '../../components/nodes/ScriptNodeEditModal.svelte';
 
 	import Drawflow from 'drawflow';
 	import Icon from '@iconify/svelte';
@@ -23,6 +25,7 @@
 	let openProxyNodeEditModal = false;
 	let openRouteNodeEditModal = false;
 	let openScriptNodeEditModal = false;
+	let openSwitchNodeEditModal = false;
 
 	function drag(ev) {
 		if (ev.type === 'touchstart') {
@@ -90,8 +93,6 @@
 		targetNode.addEventListener('dblclick', handleNodeDoubleClick);
 
 		updateCurrentNodes();
-
-		console.log($currentNodes);
 	}
 
 	function positionMobile(ev) {
@@ -114,9 +115,10 @@
 			case 'Script':
 				openScriptNodeEditModal = !openScriptNodeEditModal;
 				break;
+			case 'Switch':
+				openSwitchNodeEditModal = !openSwitchNodeEditModal;
+				break;
 		}
-
-		
 	}
 
 	function updateCurrentNodes() {
@@ -124,10 +126,14 @@
 		nodesInfo = { collections: nodesInfo['drawflow'] };
 
 		//backup pre-defined node information
-		if('collections' in $currentNodes) {
-			for (const [nodeId, nodeData] of Object.entries($currentNodes['collections']['Home']['data'])) {
-				if(nodeId in nodesInfo['collections']['Home']['data']) {
+		if ('collections' in $currentNodes) {
+			for (const [nodeId, nodeData] of Object.entries(
+				$currentNodes['collections']['Home']['data']
+			)) {
+				if (nodeId in nodesInfo['collections']['Home']['data']) {
 					nodesInfo['collections']['Home']['data'][nodeId]['data'] = nodeData['data'];
+					delete nodesInfo['collections']['Home']['data'][nodeId]['html'];
+					delete nodesInfo['collections']['Home']['data'][nodeId]['typenode'];
 				}
 			}
 		}
@@ -151,7 +157,6 @@
 		document.getElementById('drawflow').addEventListener('keydown', updateCurrentNodes);
 		document.getElementById('drawflow').addEventListener('mouseup', updateCurrentNodes);
 	});
-
 </script>
 
 <div>
@@ -178,6 +183,13 @@
 					on:dblclick={() => (openScriptNodeEditModal = !openScriptNodeEditModal)}
 				/>
 			</div>
+			<div class="drag-drawflow" draggable="true" on:dragstart={drag} data-node="switch">
+				<SwitchNode />
+				<SwitchNodeEditModal
+					isModalOpen={openSwitchNodeEditModal}
+					on:dblclick={() => (openScriptNodeEditModal = !openScriptNodeEditModal)}
+				/>
+			</div>
 		</div>
 		<div class="col-right">
 			<div class="menu">
@@ -188,7 +200,7 @@
 					class="btn-export"
 					on:click={Swal.fire({
 						title: 'Export',
-						html: '<pre><code>' + JSON.stringify(editor.export(), null, 4) + '</code></pre>'
+						html: '<pre><code>' + JSON.stringify($currentNodes, null, 4) + '</code></pre>'
 					})}
 				>
 					Export

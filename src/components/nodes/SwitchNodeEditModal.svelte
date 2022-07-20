@@ -9,15 +9,15 @@
 {#if isModalOpen && $editNodeId}
 	<div class="backdrop" transition:fade on:dblclick>
 		<div class="edit-modal">
-			<p>Edting Route Node - id : {$editNodeId}</p>
+			<p>Switch Node - id : {$editNodeId}</p>
 			name:<input
 				bind:value={// @ts-ignore
 				$currentNodes['collections']['Home']['data'][$editNodeId]['data']['name']}
 			/><br />
-			endpoint:
+			script:
 			<input
 				bind:value={// @ts-ignore
-				$currentNodes['collections']['Home']['data'][$editNodeId]['data']['url']}
+				$currentNodes['collections']['Home']['data'][$editNodeId]['data']['conditions']}
 			/><br />
 		</div>
 	</div>
@@ -35,9 +35,10 @@
 	}
 
 	.edit-modal {
+		height: 50%;
 		padding: 10px;
 		border-radius: 10px;
-		max-width: 600px;
+		max-width: 800px;
 		margin: 10% auto;
 		text-align: center;
 		background: white;

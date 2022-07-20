@@ -58,8 +58,25 @@ export const node_type = readable({
 		innerHTML: `
 		<div>
 			<div class="title-box">
-				<span class="iconify" data-icon="mdi:script-text-outline"></span>
+				<span class="iconify" data-icon="fluent:document-javascript-24-regular"></span>
 				Script
+			</div>
+		</div>
+		`
+	},
+	switch: {
+		type: 'switch',
+		input_num: 1,
+		output_num: 1,
+		data: {
+			name: '',
+			conditions: []
+		},
+		innerHTML: `
+		<div>
+			<div class="title-box">
+				<span class="iconify" data-icon="icon-park:branch-one"></span>
+				Switch
 			</div>
 		</div>
 		`

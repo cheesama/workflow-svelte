@@ -4,19 +4,21 @@
 	import { fade } from 'svelte/transition';
 
 	export let isModalOpen = false;
-
 </script>
 
 {#if isModalOpen && $editNodeId}
 	<div class="backdrop" transition:fade on:dblclick>
 		<div class="edit-modal">
-			<p>Script Route Node - id : {$editNodeId}</p>
-			name:<input bind:value={
-				// @ts-ignore
-				$currentNodes['collections']['Home']['data'][$editNodeId]['data']['name']} /><br />
-			script: <input bind:value={
-				// @ts-ignore
-				$currentNodes['collections']['Home']['data'][$editNodeId]['data']['script']} /><br />
+			<p>Script Node - id : {$editNodeId}</p>
+			name:<input
+				bind:value={// @ts-ignore
+				$currentNodes['collections']['Home']['data'][$editNodeId]['data']['name']}
+			/><br />
+			script:
+			<input
+				bind:value={// @ts-ignore
+				$currentNodes['collections']['Home']['data'][$editNodeId]['data']['script']}
+			/><br />
 		</div>
 	</div>
 {/if}

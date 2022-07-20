@@ -4,7 +4,6 @@
 	export const type = 'route';
 	export const input_num = 0;
 	export const output_num = 1;
-
 </script>
 
 <div class="route-node-style">

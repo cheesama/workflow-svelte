@@ -1,7 +1,7 @@
-import type { INode } from "./Nodes";
+import type { INode } from './Nodes';
 
 export interface ICollection {
-    id: string,
-    name: string,
-    nodes: INode[]         
+	id: string;
+	name: string;
+	nodes: INode[];
 }

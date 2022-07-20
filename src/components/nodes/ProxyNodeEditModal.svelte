@@ -1,25 +1,32 @@
 <script>
 	import { currentNodes, editNodeId } from '../../stores/nodes';
-	
+
 	import { fade } from 'svelte/transition';
 
 	export let isModalOpen = false;
-
 </script>
 
 {#if isModalOpen && $editNodeId}
 	<div class="backdrop" transition:fade on:dblclick>
 		<div class="edit-modal">
 			<p>Edting Proxy Node - id : {$editNodeId}</p>
-			name:<input type="name" bind:value={
-// @ts-ignore
-			$currentNodes['collections']['Home']['data'][$editNodeId]['data']['name']} /><br />
-			URL: <input type="url" bind:value={
-// @ts-ignore
-			$currentNodes['collections']['Home']['data'][$editNodeId]['data']['url']} /><br />
-			port: <input type="number" bind:value={
-// @ts-ignore
-			$currentNodes['collections']['Home']['data'][$editNodeId]['data']['port']} /><br />
+			name:<input
+				type="name"
+				bind:value={// @ts-ignore
+				$currentNodes['collections']['Home']['data'][$editNodeId]['data']['name']}
+			/><br />
+			URL:
+			<input
+				type="url"
+				bind:value={// @ts-ignore
+				$currentNodes['collections']['Home']['data'][$editNodeId]['data']['url']}
+			/><br />
+			port:
+			<input
+				type="number"
+				bind:value={// @ts-ignore
+				$currentNodes['collections']['Home']['data'][$editNodeId]['data']['port']}
+			/><br />
 		</div>
 	</div>
 {/if}

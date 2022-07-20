@@ -1,7 +1,6 @@
 <script>
-	export let collection_name = 'Home';
+	import CollectionTabs from "../../components/collections/CollectionTabs.svelte";
+
 </script>
 
-<ul>
-	<li class="selected">{collection_name}</li>
-</ul>
+<CollectionTabs />
