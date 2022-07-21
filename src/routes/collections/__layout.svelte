@@ -126,7 +126,11 @@
 		nodesInfo = { collections: nodesInfo['drawflow'] };
 
 		//backup pre-defined node information
-		if ('collections' in $currentNodes) {
+		if (
+			'collections' in $currentNodes &&
+			'Home' in $currentNodes['collections'] &&
+			'data' in $currentNodes['collections']['Home']
+		) {
 			for (const [nodeId, nodeData] of Object.entries(
 				$currentNodes['collections']['Home']['data']
 			)) {
@@ -219,7 +223,7 @@
 <style>
 	#drawflow {
 		background-color: #eee;
-		width: 1800px;
+		width: 1400px;
 		height: 860px;
 	}
 </style>

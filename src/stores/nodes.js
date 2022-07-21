@@ -54,7 +54,7 @@ export const node_type = readable({
 		data: {
 			name: '',
 			script: ''
-		},	
+		},
 		innerHTML: `
 		<div>
 			<div class="title-box">
