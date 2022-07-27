@@ -151,7 +151,10 @@
 		editor.changeModule(ev.detail.collectionName);
 	}
 
-	function renameCollection(ev) {}
+	function renameCollection(ev) {
+		editor.drawflow.drawflow[ev.detail.currentCollectionName] = editor.drawflow.drawflow[ev.detail.prevCollectionName];
+		delete editor.drawflow.drawflow[ev.detail.prevCollectionName];
+	}
 
 	function addCollectionToDataFlow(ev) {
 		editor.addModule(ev.detail.collectionName);
@@ -160,9 +163,25 @@
 	}
 
 	onMount(() => {
-		let id = document.getElementById('drawflow');
-		editor = new Drawflow(id);
+		let el = document.getElementById('drawflow');
+		editor = new Drawflow(el);
 		editor.useuuid = true;
+		
+		editor.on('nodeCreated', function(newNodeId) {
+			updateCurrentNodes();
+		})
+		editor.on('nodeRemoved', function(removeNodeId) {
+			updateCurrentNodes();
+		})
+		editor.on('connectionCreated', function(connection) {
+			updateCurrentNodes();
+		})
+		editor.on('connectionRemoved', function(connection) {
+			updateCurrentNodes();
+		})
+
+
+
 		editor.start();
 
 		let elements = document.getElementsByClassName('drag-drawflow');
