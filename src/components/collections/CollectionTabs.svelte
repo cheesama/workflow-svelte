@@ -53,7 +53,6 @@
 			ev.target.disabled = true;
 			ev.target.value = prevCollectionName;
 		}
-
 	}
 
 	function addCollection() {
@@ -79,7 +78,7 @@
 </ul>
 
 <style>
-    input:focus {
-        background-color: rgb(197, 208, 218);
-    }
+	input:focus {
+		background-color: rgb(197, 208, 218);
+	}
 </style>

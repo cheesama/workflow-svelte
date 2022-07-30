@@ -128,18 +128,18 @@
 		nodesInfo = { collections: nodesInfo['drawflow'] };
 
 		//backup pre-defined node information
-		if (
-			'collections' in $currentNodes &&
-			'Home' in $currentNodes['collections'] &&
-			'data' in $currentNodes['collections']['Home']
-		) {
-			for (const [nodeId, nodeData] of Object.entries(
-				$currentNodes['collections']['Home']['data']
-			)) {
-				if (nodeId in nodesInfo['collections']['Home']['data']) {
-					nodesInfo['collections']['Home']['data'][nodeId]['data'] = nodeData['data'];
-					delete nodesInfo['collections']['Home']['data'][nodeId]['html'];
-					delete nodesInfo['collections']['Home']['data'][nodeId]['typenode'];
+		if ('collections' in $currentNodes) {
+			for (let each_collection of Object.keys($currentNodes['collections'])) {
+				if ($currentNodes['collections'][each_collection].hasOwnProperty('data')) {
+					for (const [nodeId, nodeData] of Object.entries(
+						$currentNodes['collections'][each_collection]['data']
+					)) {
+						if (nodeId in nodesInfo['collections'][each_collection]['data']) {
+							nodesInfo['collections'][each_collection]['data'][nodeId]['data'] = nodeData['data'];
+							delete nodesInfo['collections'][each_collection]['data'][nodeId]['html'];
+							delete nodesInfo['collections'][each_collection]['data'][nodeId]['typenode'];
+						}
+					}
 				}
 			}
 		}
@@ -152,7 +152,8 @@
 	}
 
 	function renameCollection(ev) {
-		editor.drawflow.drawflow[ev.detail.currentCollectionName] = editor.drawflow.drawflow[ev.detail.prevCollectionName];
+		editor.drawflow.drawflow[ev.detail.currentCollectionName] =
+			editor.drawflow.drawflow[ev.detail.prevCollectionName];
 		delete editor.drawflow.drawflow[ev.detail.prevCollectionName];
 	}
 
@@ -166,21 +167,19 @@
 		let el = document.getElementById('drawflow');
 		editor = new Drawflow(el);
 		editor.useuuid = true;
-		
-		editor.on('nodeCreated', function(newNodeId) {
-			updateCurrentNodes();
-		})
-		editor.on('nodeRemoved', function(removeNodeId) {
-			updateCurrentNodes();
-		})
-		editor.on('connectionCreated', function(connection) {
-			updateCurrentNodes();
-		})
-		editor.on('connectionRemoved', function(connection) {
-			updateCurrentNodes();
-		})
 
-
+		editor.on('nodeCreated', function (newNodeId) {
+			updateCurrentNodes();
+		});
+		editor.on('nodeRemoved', function (removeNodeId) {
+			updateCurrentNodes();
+		});
+		editor.on('connectionCreated', function (connection) {
+			updateCurrentNodes();
+		});
+		editor.on('connectionRemoved', function (connection) {
+			updateCurrentNodes();
+		});
 
 		editor.start();
 
