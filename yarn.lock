@@ -294,6 +294,11 @@
     resolve-from "^5.0.0"
     rollup-pluginutils "^2.8.2"
 
+"@zerodevx/svelte-toast@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@zerodevx/svelte-toast/-/svelte-toast-0.7.2.tgz#904610b7d99d099bcdb83a005ee32e0b3351c909"
+  integrity sha512-vWiY6IqsstcOoQ8PFBuFuxgPkj1JFAGhUF9gC7wLx7c5A9SSfdtxWs/39ekGSIeyJK0yqWhTcmzGrCEWSELzDw==
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -1773,6 +1778,11 @@ svelte-preprocess@^4.0.0, svelte-preprocess@^4.10.6:
     magic-string "^0.25.7"
     sorcery "^0.10.0"
     strip-indent "^3.0.0"
+
+svelte-toast@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/svelte-toast/-/svelte-toast-1.0.0.tgz#9b562d8c819a38c524e07b3f17f30b46dae7c630"
+  integrity sha512-i6XHJgCgyAYmobEXS78iei6cQBLYIDgk1rrj65wM0sIi4RzCl/9205sVruZT7zUf0N2xsLkeN2rFh9inlRJXEg==
 
 svelte@^3.44.0:
   version "3.49.0"

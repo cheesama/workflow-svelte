@@ -3,6 +3,8 @@
 
 	import { onMount } from 'svelte';
 
+	import { SvelteToast, toast } from '@zerodevx/svelte-toast';
+
 	import { node_type } from '../../stores/nodes';
 	import { currentNodes, editNodeId } from '../../stores/nodes';
 
@@ -158,15 +160,15 @@
 	}
 
 	function removeCollection(ev) {
-    delete editor.drawflow.drawflow[ev.detail.collectionName];
-    delete $currentNodes['collections'][ev.detail.collectionName];
+		delete editor.drawflow.drawflow[ev.detail.collectionName];
+		delete $currentNodes['collections'][ev.detail.collectionName];
 
-    updateCurrentNodes();
-    //set focused collection as first collection
-    ev.detail.collectionName = Object.keys($currentNodes['collections'])[0];
+		updateCurrentNodes();
+		//set focused collection as first collection
+		ev.detail.collectionName = Object.keys($currentNodes['collections'])[0];
 
-    changeCollection(ev);
-  }
+		changeCollection(ev);
+	}
 
 	function addCollectionToDataFlow(ev) {
 		editor.addModule(ev.detail.collectionName);
@@ -186,7 +188,30 @@
 			updateCurrentNodes();
 		});
 		editor.on('connectionCreated', function (connection) {
+			editor.updateConnectionNodes('node-' + connection['output_id']);
+			editor.updateConnectionNodes('node-' + connection['input_id']);
 			updateCurrentNodes();
+
+			const currentCollectionName = editor.module;
+			for (const nodeInfo of Object.values($currentNodes['collections'][currentCollectionName])) {
+				if (
+					//in case of connection invalidate
+					nodeInfo[connection['output_id']]['class'] != 'switch' &&
+					nodeInfo[connection['output_id']]['outputs']['output_1']['connections'].length > 1
+				) {
+					toast.push(
+						nodeInfo[connection['output_id']]['class'] + ' Node can not have multi connection'
+					);
+					//remove created connection
+					editor.removeSingleConnection(
+						connection['output_id'],
+						connection['input_id'],
+						connection['output_class'],
+						connection['input_class']
+					);
+					updateCurrentNodes();
+				}
+			}
 		});
 		editor.on('connectionRemoved', function (connection) {
 			updateCurrentNodes();
@@ -207,6 +232,7 @@
 </script>
 
 <div>
+	<SvelteToast />
 	<div class="wrapper">
 		<div class="col">
 			<div class="drag-drawflow" draggable="true" on:dragstart={drag} data-node="proxy">
@@ -247,17 +273,18 @@
 					on:removeCollection={removeCollection}
 				/>
 			</div>
-			<div id="drawflow" on:drop={drop} on:dragover={allowDrop}>
+			<div id="drawflow" class=" w-full" on:drop={drop} on:dragover={allowDrop}>
 				<div
-					class="btn-export"
+					class="btn-export right-24"
 					on:click={Swal.fire({
 						title: 'Export',
 						html: '<pre><code>' + JSON.stringify($currentNodes, null, 4) + '</code></pre>'
 					})}
 				>
-					Export
+					Export All
 				</div>
-				<div class="btn-clear" on:click={editor.clearModuleSelected()}>Clear</div>
+				<div class="btn-clear right-48" on:click={editor.clearModuleSelected()}>Clear</div>
+				<div class="btn-clear right-4 bg-green-600" >Save All</div>
 				<div class="bar-zoom">
 					<Icon icon="akar-icons:zoom-out" on:click={editor.zoom_out()} />
 					<Icon icon="bytesize:zoom-reset" on:click={editor.zoom_reset()} />
