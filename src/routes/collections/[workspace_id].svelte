@@ -157,6 +157,17 @@
 		delete editor.drawflow.drawflow[ev.detail.prevCollectionName];
 	}
 
+	function removeCollection(ev) {
+    delete editor.drawflow.drawflow[ev.detail.collectionName];
+    delete $currentNodes['collections'][ev.detail.collectionName];
+
+    updateCurrentNodes();
+    //set focused collection as first collection
+    ev.detail.collectionName = Object.keys($currentNodes['collections'])[0];
+
+    changeCollection(ev);
+  }
+
 	function addCollectionToDataFlow(ev) {
 		editor.addModule(ev.detail.collectionName);
 		changeCollection(ev);
@@ -233,6 +244,7 @@
 					on:addCollectionToDataFlow={addCollectionToDataFlow}
 					on:changeCollection={changeCollection}
 					on:renameCollection={renameCollection}
+					on:removeCollection={removeCollection}
 				/>
 			</div>
 			<div id="drawflow" on:drop={drop} on:dragover={allowDrop}>
