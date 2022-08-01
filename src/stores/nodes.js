@@ -1,13 +1,8 @@
 import { writable, readable } from 'svelte/store';
 
-export const currentNodes = writable({}, () => {
-	console.log('there are some tracking nodes!'); //there is/are subscription target more than 0
-	return () => {
-		console.log('there are no tracking nodes ...'); //there is no subscription target
-	};
-});
-
+export const currentNodes = writable({});
 export const editNodeId = writable('');
+export const currentCollectionName = writable('');
 
 export const node_type = readable({
 	proxy: {
@@ -17,13 +12,13 @@ export const node_type = readable({
 		data: {
 			name: '',
 			url: '',
-			method: 'GET',
+			method: 'get',
 			port: 0
 		},
 		innerHTML: `
 		<div>
 			<div class="title-box">
-				<span class="iconify" data-icon="carbon:server-proxy"></span>
+				<span class="iconify inline-block" data-icon="carbon:server-proxy"></span>
 				Proxy
 			</div>
 		</div>
@@ -36,12 +31,12 @@ export const node_type = readable({
 		data: {
 			name: '',
 			endpoint: '',
-			method: 'GET'
+			method: 'get'
 		},
 		innerHTML: `
 		<div>
 			<div class="title-box">
-				<span class="iconify" data-icon="ic:baseline-route"></span>
+				<span class="iconify inline-block" data-icon="ic:baseline-route"></span>
 				Route
 			</div>
 		</div>
@@ -58,7 +53,7 @@ export const node_type = readable({
 		innerHTML: `
 		<div>
 			<div class="title-box">
-				<span class="iconify" data-icon="fluent:document-javascript-24-regular"></span>
+				<span class="iconify inline-block" data-icon="mdi:script-text-outline"></span>
 				Script
 			</div>
 		</div>
@@ -70,12 +65,12 @@ export const node_type = readable({
 		output_num: 1,
 		data: {
 			name: '',
-			conditions: []
+			script: ''
 		},
 		innerHTML: `
 		<div>
 			<div class="title-box">
-				<span class="iconify" data-icon="icon-park:branch-one"></span>
+				<span class="iconify inline-block" data-icon="icon-park:branch-one"></span>
 				Switch
 			</div>
 		</div>
